@@ -1,0 +1,142 @@
+﻿@page "/"
+<!--
+      - #SKIP TO CONTENT
+    -->
+
+<a href="#main" class="skip-to-content">Skip to Content</a>
+
+
+
+
+
+<!--
+  - #HEADER
+-->
+
+<header class="header" data-header>
+    <div class="container">
+
+        <a href="/" class="logo">
+            <span class="text-primary">Git</span>Finder
+        </a>
+
+        <div class="header-search">
+
+            <button class="icon-btn search-toggler" aria-controls="searchBox" aria-expanded="false"
+                    aria-label="Toggle search" data-search-toggler>
+                <span class="material-symbols-rounded search-icon" aria-hidden="true">search</span>
+
+                <span class="material-symbols-rounded close-icon" aria-hidden="true">arrow_back</span>
+            </button>
+
+            <div class="search-box" id="searchBox">
+
+                <span class="material-symbols-rounded leading-icon" aria-hidden="true">search</span>
+
+                <input type="search" name="search" @bind-value=_search aria-label="Search github username" placeholder="Search username*"
+                       class="search-field label-1" data-search-field>
+
+                <button class="search-btn" aria-label="Search submit" @onclick=Search data-search-submit>
+                    <span class="material-symbols-rounded" aria-hidden="true">search</span>
+
+                    <span class="label-1">Search</span>
+                </button>
+
+            </div>
+
+        </div>
+
+        <button class="icon-btn theme-btn" aria-pressed="false" aria-label="Toggle dark and light theme" data-theme-btn>
+            <span class="material-symbols-rounded sun-icon" aria-hidden="true">light_mode</span>
+
+            <span class="material-symbols-rounded moon-icon" aria-hidden="true">dark_mode</span>
+        </button>
+
+    </div>
+</header>
+
+
+
+
+
+<main class="main" id="main">
+    <div class="container">
+        @if (_notFound)
+        {
+            <!--
+              - #ERROR CONTENT
+            -->
+            <section class="error" data-error="" style="display: grid;">
+                <p class="title-1">Oops! :(</p>
+
+                <p class="text">
+                    There is no account with this username yet.
+                </p>
+            </section>
+        }
+        else
+        {
+            <!--
+              - #PROFILE
+            -->
+
+            <PageProfile Data="_profile" />
+
+            <!--
+              - #TAB
+            -->
+
+            <section class="tab-container">
+
+                <div class="tab-list" aria-label="Tab navigation" role="tablist">
+
+                    <button class="tab-btn" aria-selected="true" role="tab" id="tab-1" tabindex="0" aria-controls="panel-1"
+                            data-tab-btn>
+                        Repositories
+                    </button>
+
+                    <button class="tab-btn" aria-selected="false" role="tab" id="tab-2" tabindex="-1" aria-controls="panel-2"
+                            data-tab-btn data-forked-tab-btn>
+                        Forked
+                    </button>
+
+                    <button class="tab-btn" aria-selected="false" role="tab" id="tab-3" tabindex="-1" aria-controls="panel-3"
+                            data-tab-btn data-follower-tab-btn>
+                        Followers
+                    </button>
+
+                    <button class="tab-btn" aria-selected="false" role="tab" id="tab-4" tabindex="-1" aria-controls="panel-4"
+                            data-tab-btn data-following-tab-btn>
+                        Following
+                    </button>
+
+                </div>
+
+                <div class="tab-panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0" data-tab-panel
+                     data-repo-panel></div>
+
+                <div class="tab-panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" tabindex="0" data-tab-panel
+                     data-fork-panel hidden></div>
+
+                <div class="tab-panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" tabindex="0" data-tab-panel
+                     data-follower-panel hidden></div>
+
+                <div class="tab-panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" tabindex="0" data-tab-panel
+                     data-following-panel hidden></div>
+
+            </section>
+        }
+    </div>
+</main>
+
+
+
+
+
+<!--
+  - #FOOTER
+-->
+
+<footer class="footer container">
+    <p class="copyright">&copy; 2023 codewithsadee</p>
+</footer>
