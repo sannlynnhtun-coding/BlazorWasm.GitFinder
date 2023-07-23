@@ -1,5 +1,58 @@
-﻿<h3>Repositories</h3>
+﻿@if (data is null)
+{
+    <div class="error-content">
+        <p class="title-1">Oops! :(</p>
+        <p class="text">
+            Doesn't have any public repositories yet.
+        </p>
+    </div>
+}
+else
+{
+    <h2 class="sr-only">Repositories</h2>
+    @foreach (var repo in data.Where(x => x.fork == false))
+    {
+        <article class="card repo-card">
+            <div class="card-body">
+                <a href="@repo.html_url" target="_blank" class="card-title">
+                    <h3 class="title-3">@repo.name</h3>
+                </a>
+                @if (!string.IsNullOrWhiteSpace(repo.description))
+                {
+                    <p class="card-text">@repo.description</p>
+                }
+                <span class="badge">@(repo._private ? "Private" : "Public")</span>
+            </div>
+            <div class="card-footer">
+                @if (!string.IsNullOrWhiteSpace(repo.language))
+                {
+                    <div class="meta-item">
+                        <span class="material-symbols-rounded" aria-hidden="true">
+                            code_blocks
+                        </span>
+                        <span class="span">@repo.language</span>
+                    </div>
+                }
+                <div class="meta-item">
+                    <span class="material-symbols-rounded" aria-hidden="true">star_rate</span>
+                    <span class="span">
+                        @repo.stargazers_count.NumberToKilo()
+                    </span>
+                </div>
+                <div class="meta-item">
+                    <span class="material-symbols-rounded" aria-hidden="true">family_history</span>
+                    <span class="span">
+                        @repo.forks_count.NumberToKilo()
+                    </span>
+                </div>
+            </div>
+        </article>
+    }
+}
 
-@code {
+@code{
+
+    [Parameter]
+    public List<Repository>? data { get; set; }
 
 }

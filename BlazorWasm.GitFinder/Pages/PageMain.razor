@@ -1,16 +1,13 @@
 ﻿@page "/"
 <!--
-      - #SKIP TO CONTENT
-    -->
+- #SKIP TO CONTENT
+-->
 
 <a href="#main" class="skip-to-content">Skip to Content</a>
 
 
-
-
-
 <!--
-  - #HEADER
+- #HEADER
 -->
 
 <header class="header" data-header>
@@ -56,15 +53,12 @@
 </header>
 
 
-
-
-
 <main class="main" id="main">
     <div class="container">
         @if (_notFound)
         {
             <!--
-              - #ERROR CONTENT
+            - #ERROR CONTENT
             -->
             <section class="error" data-error="" style="display: grid;">
                 <p class="title-1">Oops! :(</p>
@@ -77,64 +71,68 @@
         else
         {
             <!--
-              - #PROFILE
+            - #PROFILE
             -->
 
-            <PageProfile Data="_profile" />
+            <PageProfile data="_profile"/>
 
             <!--
-              - #TAB
+            - #TAB
             -->
+@if (!_searching)
+{
+    <section class="tab-container">
 
-            <section class="tab-container">
+        <div class="tab-list" aria-label="Tab navigation" role="tablist">
 
-                <div class="tab-list" aria-label="Tab navigation" role="tablist">
+            <button class="tab-btn" aria-selected="true" role="tab" id="tab-1" tabindex="0" aria-controls="panel-1"
+                    data-tab-btn>
+                Repositories
+            </button>
 
-                    <button class="tab-btn" aria-selected="true" role="tab" id="tab-1" tabindex="0" aria-controls="panel-1"
-                            data-tab-btn>
-                        Repositories
-                    </button>
+            <button class="tab-btn" aria-selected="false" role="tab" id="tab-2" tabindex="-1" aria-controls="panel-2"
+                    data-tab-btn data-forked-tab-btn>
+                Forked
+            </button>
 
-                    <button class="tab-btn" aria-selected="false" role="tab" id="tab-2" tabindex="-1" aria-controls="panel-2"
-                            data-tab-btn data-forked-tab-btn>
-                        Forked
-                    </button>
+            <button class="tab-btn" aria-selected="false" role="tab" id="tab-3" tabindex="-1" aria-controls="panel-3"
+                    data-tab-btn data-follower-tab-btn>
+                Followers
+            </button>
 
-                    <button class="tab-btn" aria-selected="false" role="tab" id="tab-3" tabindex="-1" aria-controls="panel-3"
-                            data-tab-btn data-follower-tab-btn>
-                        Followers
-                    </button>
+            <button class="tab-btn" aria-selected="false" role="tab" id="tab-4" tabindex="-1" aria-controls="panel-4"
+                    data-tab-btn data-following-tab-btn>
+                Following
+            </button>
 
-                    <button class="tab-btn" aria-selected="false" role="tab" id="tab-4" tabindex="-1" aria-controls="panel-4"
-                            data-tab-btn data-following-tab-btn>
-                        Following
-                    </button>
+        </div>
 
-                </div>
+        <div class="tab-panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0" data-tab-panel
+             data-repo-panel>
+            <PageRepositories data="_repositories"></PageRepositories>
+        </div>
 
-                <div class="tab-panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0" data-tab-panel
-                     data-repo-panel></div>
+        <div class="tab-panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" tabindex="0" data-tab-panel
+             data-fork-panel hidden>
+        </div>
 
-                <div class="tab-panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" tabindex="0" data-tab-panel
-                     data-fork-panel hidden></div>
+        <div class="tab-panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" tabindex="0" data-tab-panel
+             data-follower-panel hidden>
+        </div>
 
-                <div class="tab-panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" tabindex="0" data-tab-panel
-                     data-follower-panel hidden></div>
+        <div class="tab-panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" tabindex="0" data-tab-panel
+             data-following-panel hidden>
+        </div>
 
-                <div class="tab-panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" tabindex="0" data-tab-panel
-                     data-following-panel hidden></div>
-
-            </section>
+    </section>
+}
         }
     </div>
 </main>
 
 
-
-
-
 <!--
-  - #FOOTER
+- #FOOTER
 -->
 
 <footer class="footer container">

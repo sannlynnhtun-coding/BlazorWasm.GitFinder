@@ -1,19 +1,19 @@
-﻿@if (Data is not null)
+﻿@if (data is not null)
 {
-    string username = Data.login;
-    string githubPage = Data.html_url;
-    string website = string.IsNullOrEmpty(Data.blog) ? null : Data.blog;
+    string username = data.login;
+    string githubPage = data.html_url;
+    string? website = string.IsNullOrEmpty(data.blog) ? null : data.blog;
     <section class="profile" data-profile-card="">
-        <figure class="@(Data.type == "User" ? "avatar-circle" : "avatar-rounded") img-holder" style="--width: 280; --height: 280">
-            <img src="@Data.avatar_url" width="280" height="280" alt="@username" class="img-cover">
+        <figure class="@(data.type == "User" ? "avatar-circle" : "avatar-rounded") img-holder" style="--width: 280; --height: 280">
+            <img src="@data.avatar_url" width="280" height="280" alt="@username" class="img-cover">
         </figure>
 
-        <h1 class="title-2">@Data.name</h1>
+        <h1 class="title-2">@data.name</h1>
 
         <p class="username text-primary">@username</p>
 
         <p class="bio">
-            @Data.bio
+            @data.bio
         </p>
 
         <a href="@githubPage" target="_blank" class="btn btn-secondary">
@@ -27,13 +27,13 @@
             <li class="meta-item">
                 <span class="material-symbols-rounded" aria-hidden="true">location_on</span>
 
-                <span class="meta-text">@Data.location</span>
+                <span class="meta-text">@data.location</span>
             </li>
 
             <li class="meta-item">
                 <span class="material-symbols-rounded" aria-hidden="true">apartment</span>
 
-                <span class="meta-text">@Data.company</span>
+                <span class="meta-text">@data.company</span>
             </li>
 
             @if (website is not null)
@@ -45,7 +45,7 @@
                 </li>
             }
 
-            @if (Data.twitter_username is not null)
+            @if (data.twitter_username is not null)
             {
                 <li class="meta-item">
                     <span class="icon">
@@ -54,7 +54,7 @@
                         </svg>
                     </span>
 
-                    <a href="https://twitter.com/@username" target="_blank" class="meta-text">@Data.twitter_username</a>
+                    <a href="https://twitter.com/@username" target="_blank" class="meta-text">@data.twitter_username</a>
                 </li>
             }
 
@@ -63,15 +63,15 @@
         <ul class="profile-stats">
 
             <li class="stats-item">
-                <span class="body">@Data.public_repos</span> Repos
+                <span class="body">@data.public_repos</span> Repos
             </li>
 
             <li class="stats-item">
-                <span class="body">@Data.followers.NumberToKilo()</span> Followers
+                <span class="body">@data.followers.NumberToKilo()</span> Followers
             </li>
 
             <li class="stats-item">
-                <span class="body">@Data.following.NumberToKilo()</span> Following
+                <span class="body">@data.following.NumberToKilo()</span> Following
             </li>
 
         </ul>
@@ -83,6 +83,8 @@
 }
 
 @code {
+
     [Parameter]
-    public Profile? Data { get; set; }
+    public Profile? data { get; set; }
+
 }
