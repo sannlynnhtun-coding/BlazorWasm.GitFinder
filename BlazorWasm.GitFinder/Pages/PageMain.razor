@@ -85,22 +85,30 @@
 
         <div class="tab-list" aria-label="Tab navigation" role="tablist">
 
-            <button class="tab-btn" aria-selected="true" role="tab" id="tab-1" tabindex="0" aria-controls="panel-1"
+            <button class="tab-btn"
+                    @onclick="() => ChangeTab(EnumTabType.Repositories)"
+                    aria-selected="@SelectedTab(EnumTabType.Repositories)" role="tab" id="tab-1" tabindex="0" aria-controls="panel-1"
                     data-tab-btn>
                 Repositories
             </button>
 
-            <button class="tab-btn" aria-selected="false" role="tab" id="tab-2" tabindex="-1" aria-controls="panel-2"
+            <button class="tab-btn"
+                    @onclick="() => ChangeTab(EnumTabType.Forked)"
+                    aria-selected="@SelectedTab(EnumTabType.Forked)" role="tab" id="tab-2" tabindex="-1" aria-controls="panel-2"
                     data-tab-btn data-forked-tab-btn>
                 Forked
             </button>
 
-            <button class="tab-btn" aria-selected="false" role="tab" id="tab-3" tabindex="-1" aria-controls="panel-3"
+            <button class="tab-btn"
+                    @onclick="() => ChangeTab(EnumTabType.Followers)"
+                    aria-selected="@SelectedTab(EnumTabType.Followers)" role="tab" id="tab-3" tabindex="-1" aria-controls="panel-3"
                     data-tab-btn data-follower-tab-btn>
                 Followers
             </button>
 
-            <button class="tab-btn" aria-selected="false" role="tab" id="tab-4" tabindex="-1" aria-controls="panel-4"
+            <button class="tab-btn"
+                    @onclick="() => ChangeTab(EnumTabType.Following)"
+                    aria-selected="@SelectedTab(EnumTabType.Following)" role="tab" id="tab-4" tabindex="-1" aria-controls="panel-4"
                     data-tab-btn data-following-tab-btn>
                 Following
             </button>
@@ -108,20 +116,21 @@
         </div>
 
         <div class="tab-panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0" data-tab-panel
-             data-repo-panel>
+             data-repo-panel style="@Hidden(EnumTabType.Repositories)">
             <PageRepositories data="_repositories"></PageRepositories>
         </div>
 
         <div class="tab-panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" tabindex="0" data-tab-panel
-             data-fork-panel hidden>
+             data-fork-panel style="@Hidden(EnumTabType.Forked)">
+            <PageForked data="_repositories"></PageForked>
         </div>
 
         <div class="tab-panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" tabindex="0" data-tab-panel
-             data-follower-panel hidden>
+             data-follower-panel style="@Hidden(EnumTabType.Followers)">
         </div>
 
         <div class="tab-panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" tabindex="0" data-tab-panel
-             data-following-panel hidden>
+             data-following-panel style="@Hidden(EnumTabType.Following)">
         </div>
 
     </section>

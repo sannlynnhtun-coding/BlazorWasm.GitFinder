@@ -9,12 +9,46 @@
 }
 else
 {
-    <h2 class="sr-only">Repositories</h2>
+    <h2 class="sr-only">Forked repositories</h2>
+    @foreach (var item in data.Where(x => x.fork))
+    {
+        <article class="card repo-card">
+            <div class="card-body">
+
+                <a href="@item.html_url" target="_blank" class="card-title">
+                    <h3 class="title-3">@item.name</h3>
+                </a>
+                @if (!string.IsNullOrWhiteSpace(item.description))
+                {
+                    <p class="card-text">@item.description</p>
+                }
+                <span class="badge">@(item._private ? "Private" : "Public")</span>
+
+            </div>
+            <div class="card-footer">
+                 @if (!string.IsNullOrWhiteSpace(item.language))
+                 {
+                     <div class="meta-item">
+                         <span class="material-symbols-rounded" aria-hidden="true">code_blocks</span>
+                         <span class="span">@item.language</span>
+                     </div>
+                 }
+                <div class="meta-item">
+                    <span class="material-symbols-rounded" aria-hidden="true">star_rate</span>
+                    <span class="span">@item.stargazers_count.NumberToKilo()</span>
+                </div>
+                <div class="meta-item">
+                    <span class="material-symbols-rounded" aria-hidden="true">family_history</span>
+                    <span class="span">@item.forks_count.NumberToKilo()</span>
+                </div>
+            </div>
+        </article>
+    }
 }
 
 @code{
 
     [Parameter]
-    public Repository? data { get; set; }
+    public List<Repository>? data { get; set; }
 
 }

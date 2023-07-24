@@ -16,6 +16,8 @@ namespace BlazorWasm.GitFinder.Pages
         private string? _followerUrl;
         private string? _followingUrl;
 
+        private EnumTabType _tabType = EnumTabType.Repositories;
+
         protected override async Task OnInitializedAsync()
         {
             _search = "sannlynnhtun-coding";
@@ -55,6 +57,22 @@ namespace BlazorWasm.GitFinder.Pages
             {
                 _repositories = await responseProfile.Content.ReadFromJsonAsync<List<Repository>?>();
             }
+        }
+
+        void ChangeTab(EnumTabType tabType)
+        {
+            _tabType = tabType;
+            StateHasChanged();
+        }
+
+        string Hidden(EnumTabType tabType)
+        {
+            return _tabType != tabType ? "display: none;" : "";
+        }
+
+        private string SelectedTab(EnumTabType tabType)
+        {
+            return (_tabType == tabType).ToString().ToLower();
         }
     }
 }
