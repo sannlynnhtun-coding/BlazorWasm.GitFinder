@@ -10,11 +10,32 @@
 else
 {
     <h2 class="sr-only">Repositories</h2>
+    foreach (var item in data)
+    {
+        <article class="card follower-card">
+            <figure class="avatar-circle img-holder">
+                <img src="@(item.avatar_url)" width="56" height="56" loading="lazy" alt="esin" class="img-cover">
+            </figure>
+
+            <h3 class="card-title">@(item.login)</h3>
+
+            <button class="icon-btn" @onclick="()=>updateProfile(item.login)" aria-label="Go to esin profile">
+                <span class="material-symbols-rounded" aria-hidden="true">link</span>
+            </button>
+        </article>
+    }
 }
 
-@code{
+@code {
 
     [Parameter]
-    public Repository? data { get; set; }
+    public List<Following>? data { get; set; }
 
+    [Parameter]
+    public EventCallback<string> SearchReproClick { get; set; }
+
+    async Task updateProfile(string name)
+    {
+        await SearchReproClick.InvokeAsync(name);
+    }
 }
