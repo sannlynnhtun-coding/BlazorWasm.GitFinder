@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject IJSRuntime jsRuntime
 <!--
 - #SKIP TO CONTENT
 -->
@@ -43,10 +44,14 @@
 
         </div>
 
-        <button class="icon-btn theme-btn" aria-pressed="false" aria-label="Toggle dark and light theme" data-theme-btn>
-            <span class="material-symbols-rounded sun-icon" aria-hidden="true">light_mode</span>
+        <button class="icon-btn theme-btn" aria-pressed="false" @onclick = "ChangeTheme"
+         aria-label="Toggle dark and light theme" data-theme-btn>
+            @{
+                string Icon = Mode == "light_mode" ? "sun-icon" : "moon-icon";
+            }
+            <span class="material-symbols-rounded @Icon" aria-hidden="true">@Mode</span>
 
-            <span class="material-symbols-rounded moon-icon" aria-hidden="true">dark_mode</span>
+            @*<span class="material-symbols-rounded moon-icon" aria-hidden="true">dark_mode</span>*@
         </button>
 
     </div>

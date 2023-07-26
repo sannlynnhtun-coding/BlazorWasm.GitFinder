@@ -30,3 +30,8 @@ window.addEventListener("load", function () {
 
   $themeBtn.addEventListener("click", changeTheme);
 });
+
+window.toggleTheme = function (changeUi) {
+    var htmlElement = document.documentElement;
+    htmlElement.setAttribute("data-theme", changeUi === "light" ? "light" : "dark");
+}

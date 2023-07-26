@@ -1,4 +1,5 @@
 ﻿using BlazorWasm.GitFinder.Models;
+using Microsoft.JSInterop;
 using System.Net.Http.Json;
 
 namespace BlazorWasm.GitFinder.Pages
@@ -7,7 +8,9 @@ namespace BlazorWasm.GitFinder.Pages
     {
         private string? _search;
         private bool _searching;
-        
+        private int counter = 1;
+        private string? Mode = "light_mode";
+
         private Profile? _profile;
         private List<Repository>? _repositories;
         private List<Follower>? _follower;
@@ -112,12 +115,26 @@ namespace BlazorWasm.GitFinder.Pages
             _tabType = EnumTabType.Repositories;
             await Search();
         }
-        
+
         private async Task Default()
         {
             _search = DefaultUser;
             _tabType = EnumTabType.Repositories;
             await Search();
+        }
+
+        void ChangeTheme()
+        {
+            if (++counter % 2 != 0)
+            {
+                jsRuntime.InvokeVoidAsync("toggleTheme", "dark");
+                Mode = "light_mode";
+            }
+            else
+            {
+                jsRuntime.InvokeVoidAsync("toggleTheme", "light");
+                Mode = "dark_mode"; 
+            }
         }
     }
 }
