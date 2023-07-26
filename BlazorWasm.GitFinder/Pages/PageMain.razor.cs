@@ -1,5 +1,4 @@
 ﻿using BlazorWasm.GitFinder.Models;
-using System;
 using System.Net.Http.Json;
 
 namespace BlazorWasm.GitFinder.Pages
@@ -20,41 +19,49 @@ namespace BlazorWasm.GitFinder.Pages
         private string? _followingUrl;
 
         private EnumTabType _tabType = EnumTabType.Repositories;
+        const string DefaultUser = "sannlynnhtun-coding";
 
         protected override async Task OnInitializedAsync()
         {
-            _search = "sannlynnhtun-coding";
+            _search = DefaultUser;
             await Search();
         }
 
         async Task Search()
         {
-            _searching = true;
-            _notFound = false;
-            var responseProfile = await HttpClient.GetAsync($"https://api.github.com/users/{_search}");
-            if (!responseProfile.IsSuccessStatusCode)
+            try
             {
-                _notFound = true;
-            }
-            else
-            {
-                _profile = await responseProfile.Content.ReadFromJsonAsync<Profile>();
-                if (_profile != null)
+                _searching = true;
+                _notFound = false;
+                var responseProfile = await HttpClient.GetAsync($"https://api.github.com/users/{_search}");
+                if (!responseProfile.IsSuccessStatusCode)
                 {
-                    _repoUrl = _profile.repos_url;
-                    _followerUrl = _profile.followers_url;
-                    //_followingUrl = _profile.following_url;
-                    int index = _profile.following_url.IndexOf("{");
-                    _followingUrl = _profile.following_url.Substring(0, index);
-
-                    await Repository();
-                    await Follower();
-                    await Following();
+                    _notFound = true;
                 }
-            }
+                else
+                {
+                    _profile = await responseProfile.Content.ReadFromJsonAsync<Profile>();
+                    if (_profile != null)
+                    {
+                        _repoUrl = _profile.repos_url;
+                        _followerUrl = _profile.followers_url;
+                        //_followingUrl = _profile.following_url;
+                        int index = _profile.following_url.IndexOf("{", StringComparison.Ordinal);
+                        _followingUrl = _profile.following_url.Substring(0, index);
 
-            _searching = false;
-            StateHasChanged();
+                        await Repository();
+                        await Follower();
+                        await Following();
+                    }
+                }
+
+                _searching = false;
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         async Task Repository()
@@ -99,12 +106,18 @@ namespace BlazorWasm.GitFinder.Pages
             return (_tabType == tabType).ToString().ToLower();
         }
 
-        public async Task SearchRepro(string? name)
+        private async Task ClickUser(string? name)
         {
             _search = name;
             _tabType = EnumTabType.Repositories;
             await Search();
-            StateHasChanged();
+        }
+        
+        private async Task Default()
+        {
+            _search = DefaultUser;
+            _tabType = EnumTabType.Repositories;
+            await Search();
         }
     }
 }

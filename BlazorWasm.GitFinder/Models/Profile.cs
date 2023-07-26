@@ -25,7 +25,7 @@
         public string? blog { get; set; }
         public string location { get; set; }
         public string email { get; set; }
-        public string hireable { get; set; }
+        public bool? hireable { get; set; }
         public string bio { get; set; }
         public string? twitter_username { get; set; }
         public int public_repos { get; set; }

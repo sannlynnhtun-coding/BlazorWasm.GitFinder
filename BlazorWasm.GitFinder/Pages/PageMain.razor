@@ -3,7 +3,7 @@
 - #SKIP TO CONTENT
 -->
 
-<a href="#main" class="skip-to-content">Skip to Content</a>
+<a href="javascript:void(0);" @onclick="Default" class="skip-to-content">Skip to Content</a>
 
 
 <!--
@@ -13,7 +13,7 @@
 <header class="header" data-header>
     <div class="container">
 
-        <a href="/" class="logo">
+        <a href="javascript:void(0);" @onclick="Default" class="logo">
             <span class="text-primary">Git</span>Finder
         </a>
 
@@ -127,12 +127,12 @@
 
         <div class="tab-panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" tabindex="0" data-tab-panel
              data-follower-panel style="@Hidden(EnumTabType.Followers)">
-            <PageFollowers data="_follower" SearchReproClick="SearchRepro"></PageFollowers>
+            <PageFollowers data="_follower" onClick="ClickUser"></PageFollowers>
         </div>
 
         <div class="tab-panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" tabindex="0" data-tab-panel
              data-following-panel style="@Hidden(EnumTabType.Following)">
-             <PageFollowing data="_following" SearchReproClick="SearchRepro"></PageFollowing>
+             <PageFollowing data="_following" onClick="ClickUser"></PageFollowing>
         </div>
 
     </section>

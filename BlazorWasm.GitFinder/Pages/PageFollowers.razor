@@ -19,7 +19,7 @@ else
 
             <h3 class="card-title">@(item.login)</h3>
 
-            <button class="icon-btn" @onclick="()=>updateProfile(item.login)" aria-label="Go to @item.login profile">
+            <button class="icon-btn" @onclick="()=>UpdateProfile(item.login)" aria-label="Go to @item.login profile">
                 <span class="material-symbols-rounded" aria-hidden="true">link</span>
             </button>
         </article>
@@ -32,10 +32,10 @@ else
     public List<Follower>? data { get; set; }
 
     [Parameter]
-    public EventCallback<string> SearchReproClick { get; set; }
+    public EventCallback<string> onClick { get; set; }
 
-    async Task updateProfile(string name)
+    async Task UpdateProfile(string name)
     {
-        await SearchReproClick.InvokeAsync(name);
+        await onClick.InvokeAsync(name);
     }
 }
