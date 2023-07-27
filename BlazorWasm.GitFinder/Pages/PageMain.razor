@@ -44,13 +44,14 @@
 
         </div>
 
-        <button class="icon-btn theme-btn" aria-pressed="false" @onclick = "ChangeTheme"
-         aria-label="Toggle dark and light theme" data-theme-btn>
+        <button class="icon-btn theme-btn" aria-pressed="false" @onclick="ChangeTheme"
+                aria-label="Toggle dark and light theme" data-theme-btn>
             @{
-                string Icon = Mode == "light_mode" ? "sun-icon" : "moon-icon";
+                var theme = _themeType == EnumThemeType.DarkMode ? "dark_mode" : "light_mode";
             }
-            <span class="material-symbols-rounded @Icon" aria-hidden="true">@Mode</span>
-
+            <span class="material-symbols-rounded @theme" aria-hidden="true">
+                @theme
+            </span>
             @*<span class="material-symbols-rounded moon-icon" aria-hidden="true">dark_mode</span>*@
         </button>
 
@@ -137,7 +138,7 @@
 
         <div class="tab-panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" tabindex="0" data-tab-panel
              data-following-panel style="@Hidden(EnumTabType.Following)">
-             <PageFollowing data="_following" onClick="ClickUser"></PageFollowing>
+            <PageFollowing data="_following" onClick="ClickUser"></PageFollowing>
         </div>
 
     </section>

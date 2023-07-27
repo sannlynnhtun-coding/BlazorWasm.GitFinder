@@ -9,7 +9,7 @@ namespace BlazorWasm.GitFinder.Pages
         private string? _search;
         private bool _searching;
         private int counter = 1;
-        private string? Mode = "light_mode";
+        private EnumThemeType _themeType = EnumThemeType.DarkMode;
 
         private Profile? _profile;
         private List<Repository>? _repositories;
@@ -84,6 +84,7 @@ namespace BlazorWasm.GitFinder.Pages
                 _follower = await responseFollower.Content.ReadFromJsonAsync<List<Follower>>();
             }
         }
+
         async Task Following()
         {
             var responseFollowing = await HttpClient.GetAsync(_followingUrl);
@@ -123,18 +124,18 @@ namespace BlazorWasm.GitFinder.Pages
             await Search();
         }
 
-        void ChangeTheme()
+        async Task ChangeTheme()
         {
-            if (++counter % 2 != 0)
-            {
-                jsRuntime.InvokeVoidAsync("toggleTheme", "dark");
-                Mode = "light_mode";
-            }
-            else
-            {
-                jsRuntime.InvokeVoidAsync("toggleTheme", "light");
-                Mode = "dark_mode"; 
-            }
+            _themeType =
+                _themeType ==
+                EnumThemeType.DarkMode
+                    ? EnumThemeType.LightMode
+                    : EnumThemeType.DarkMode;
+            await jsRuntime.InvokeVoidAsync("toggleTheme",
+                _themeType ==
+                EnumThemeType.DarkMode
+                    ? "dark"
+                    : "light");
         }
     }
 }
